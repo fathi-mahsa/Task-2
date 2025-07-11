@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لیست تراکنش‌ها</title>
+
+  <link rel="stylesheet" href="/src/styles/reset.css">
+  <link rel="stylesheet" href="/src/styles/fonts.css">
+  <link rel="stylesheet" href="/src/styles/index.css">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+<div class="container">
+  <div class="controls">
+    <button id="loadBtn">
+      <i class='bx bx-archive-arrow-down'></i>  
+      بارگذاری تراکنش‌ها
+    </button>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="شماره پیگیری ..">
+      <button id="searchBtn">
+        <i class='bx bx-search'></i>
+      </button>
+    </div>
+  </div>
+  <span id="searchMessage"></span>
+
+
+  <div class="tableBox">
+   <table id="transactionsTable">
+      <thead>
+        <tr>
+          <th id="idHeader">ردیف</th>
+          <th id="typeHeader">نوع تراکنش</th>
+          <th id="priceHeader">مبلغ <span class="arrow" id="priceArrow"><i class='bxr  bx-caret-up'></i></span></th>
+          <th id="refIdHeader">شماره پیگیری</th>
+          <th id="dateHeader">تاریخ تراکنش <span class="arrow" id="dateArrow"><i class='bxr  bx-caret-up'></i></span></th>
+        </tr>
+     </thead>
+     <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script src="/src/js/index.js"></script>
+</body>
+</html>
