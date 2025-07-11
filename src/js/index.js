@@ -1,25 +1,26 @@
+//* Cached DOM elements
+const searchInput = document.querySelector('#searchInput');
+const searchBtn = document.querySelector('#searchBtn');
+const tableBox = document.querySelector('.tableBox');
+const table = document.querySelector('#transactionsTable');
+const tbody = document.querySelector('#tableBody');
+const msg = document.querySelector('#searchMessage');
+
 //* Sorting variables
 let currentSortField = null;
 let currentSortOrder = 'asc';
 
 //* Load data from server & Search box
 function loadTransactions() {
-  const searchInput = document.querySelector('#searchInput');
-  const searchBtn = document.querySelector('#searchBtn');
-  const tableBox = document.querySelector('.tableBox');
-  
   searchInput.style.display = 'inline-block';
   searchBtn.style.display = 'inline-block';
   tableBox.style.display = 'flex';
-
   fetchData('http://localhost:3000/transactions');
 }
 
 //* Fetch data and render the table
 function fetchData(url) {
-  const table = document.querySelector('#transactionsTable');
   table.style.display = 'none';
-
   fetch(url)
     .then(res => res.json())
     .then(data => {
@@ -35,9 +36,7 @@ function fetchData(url) {
 
 //* Render all rows
 function renderTable(data) {
-  const tbody = document.querySelector('#tableBody');
   tbody.innerHTML = '';
-
   data.forEach(item => {
     const tr = document.createElement('tr');
     const typeClass = item.type === 'افزایش اعتبار' ? 'deposit' : 'withdraw';
@@ -54,36 +53,25 @@ function renderTable(data) {
 
 //* No data found
 function renderEmptyRow() {
-  const tbody = document.querySelector('#tableBody');
   tbody.innerHTML =
    `<tr><td colspan="4">موردی یافت نشد.</td></tr>`;
 }
 
 //* Search by refId
 function searchTransactions() {
-  const value = document.querySelector('#searchInput').value.trim();
-  const msg = document.querySelector('#searchMessage');
+  const value = searchInput.value.trim();
   msg.textContent = '';
 
   if (!value) {
-    msg.textContent = 'لطفاً شماره پیگیری را وارد کنید';
+    msg.textContent = 'لطفاً شماره پیگیری را وارد کنید!';
     return;
   }
-
-  fetch('http://localhost:3000/transactions?refId=' + encodeURIComponent(Number(value)))
-    .then(function (res) { return res.json(); })
-    .then(function (data) {
-      document.querySelector('#transactionsTable').style.display = 'table';
-
-      if (data.length) {
-        renderTable(data);
-      } else {
-        renderEmptyRow();
-      }
-    })
-    .catch(function(err) {
-      msg.textContent = 'خطا در ارتباط با سرور';
-    });
+  fetch('http://localhost:3000/transactions')
+  .then(res => res.json())
+  .then(data => {
+    const filtered = data.filter(item => item.refId.toString().includes(value));
+    renderTable(filtered);
+  })
 }
 
 //* Sort by price, date
@@ -120,20 +108,16 @@ window.addEventListener('load', function () {
       sortBy('price');
     });
   }
-
   if (dateHeader) {
     dateHeader.addEventListener('click', function () {
       sortBy('date');
     });
   }
-
   if (loadBtn) {
     loadBtn.addEventListener('click', function() {
-      loadTransactions();
+      loadTransactions(); 
     });
-
   }
-
   if (searchBtn) {
     searchBtn.addEventListener('click', function() {
       searchTransactions();

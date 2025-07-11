@@ -1,18 +1,18 @@
-/*     Root Variable     */
+/*     Root Variables     */
 :root{
-    --color-black: #191919;
-    --color-gray: #888888;
-    --color-white: #F5F5F5;
-    --color-green: #21ab74;
-    --color-red: #B80000;
+  --color-black: #191919;
+  --color-gray: #888888;
+  --color-white: #F5F5F5;
+  --color-green: #21ab74;
+  --color-red: #B80000;
 
-    --app-font-light: "Vazirmatn Light";
-    --app-font-regular: "Vazirmatn Regular";
-    --app-font-bold: "Vazirmatn Bold";
-    --app-font-heavy: "Vazirmatn Heavy";
+  --app-font-light: "Vazirmatn Light";
+  --app-font-regular: "Vazirmatn Regular";
+  --app-font-bold: "Vazirmatn Bold";
+  --app-font-heavy: "Vazirmatn Heavy";
 }
 
-/*     Reset Style     */
+/*     Reset & Base Styles     */
 html{
   font-size: 62.5%; 
   box-sizing: border-box;
@@ -25,9 +25,9 @@ body{
   background-position: center;
   background-size: cover;
   font-family: var(--app-font-regular);
-  font-size: 4.8rem;
+  font-size: 1.8rem;
   color: var(--color-black);
-  line-height: 2.4;
+  line-height: 1.6;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,10 +36,8 @@ body{
 }
 .container{
   width: 100vw;
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
-  margin-right: auto;
-  margin-left: auto;
+  padding: 0 1.5rem;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,25 +62,26 @@ body{
   gap: 1.2rem;
   margin-bottom: 4rem;
   width: 100%;
-  max-width: 100%;
 }
 #loadBtn{
   width: 90%;
   max-width: 400px;
-  padding: 3.2rem;
-  border-radius: 3.2rem;
+  padding: 1.6rem;
+  border-radius: 2rem;
   border: none;
   outline: none;
   cursor: pointer;
   font-family: var(--app-font-heavy);
-  font-size: 3.2rem;
+  font-size: 2rem;
   background-color: var(--color-gray);
   box-shadow: 0 0 20px rgba(69, 71, 75, 0.4);
-  margin-left: 2rem;
+  margin-left: 1rem;
+  transition: all 0.3s ease;
 }
 #loadBtn:hover{
   opacity: 0.85;
   text-decoration: underline;
+  transform: translateY(-2px);
 }
 .search-wrapper {
   width: 90%;
@@ -91,46 +90,54 @@ body{
 }
 input {
   width: 100%;
-  padding: 2.6rem 1.6rem; 
+  padding: 1.6rem; 
   border-radius: 3.2rem;
-  font-size: 4rem;
+  font-size: 2rem;
   color:var(--color-black); 
   box-shadow: 0 0 20px rgba(69, 71, 75, 0.4);
   border: none;
   outline: none;
 }
 input::placeholder {
-  font-family: var(--app-font-light); 
+  font-family: var(--app-font-light);
+  font-size: 1.8rem; 
 }
 #searchBtn {
   position: absolute;
   left: 1rem;  
-  top: 34%;
+  top: 50%;
+  transform: translateY(-50%);
   align-self: center;
   border: none;
   background: transparent;
   cursor: pointer;
   color: var(--color-black);
-  font-size: 3.2rem;  
-  margin-left: 3rem;
+  font-size: 2.4rem;
+  transition: all 0.3s ease;
 }
-
+#searchBtn:hover{
+  scale: 1.06;
+} 
+#searchMessage{
+  font-family: var(--app-font-bold);
+  color: var(--color-red);
+}
 /*     Table     */
 .tableBox {
   display: none;
   justify-content: center;
   align-items: center;
-  width: 80%;
-  height: 1400px;
+  width: 90%;
+  height: 70vh;
   margin: auto;
   position: relative; 
   border-radius: 3.2rem;
-  background-color: rgba(180, 180, 184, 0.95);
-  box-shadow: 0 0 20px rgba(69, 71, 75, 0.4);
-  overflow: auto; 
+  background-color: rgba(238, 238, 238, 0.95);
+  box-shadow: 0 0 20px rgba(69, 71, 75, 0.4); 
+  overflow: hidden;
 }
 table {
-  width: 90%;
+  width: 100%;
   min-width: 600px;
   border-collapse: collapse;
   background-color: var(--color-white);
@@ -140,7 +147,7 @@ table {
 }
 th, td {
   text-align: center;
-  padding: 10px;
+  padding: 1.2rem;
   border: none;
   border-bottom: 1px solid rgb(221, 221, 221);
   white-space: nowrap;
@@ -149,6 +156,7 @@ th {
   font-family: var(--app-font-bold);
   background-color: var(--color-gray);
   cursor: pointer;
+  box-shadow: 0 0 10px rgba(69, 71, 75, 0.4);
 }
 
 /*     Arrow Icon     */
@@ -156,10 +164,38 @@ th {
   display: inline-block;
   color: var(--color-black);
   opacity: 0.4;
+  transition: all 0.4s ease-in;
 }
 .arrow.active {
   opacity: 1;
-  transition: 0.4s ease-in;
-
 }
 
+@media (max-width: 768px) {
+  #loadBtn, input {
+    font-size: 1.6rem;
+    padding: 1.2rem;
+  }
+  #searchBtn{
+    font-size: 2rem;
+  }
+  .tableBox {
+    width: 100%;
+    height: 70vh;
+    overflow-x: auto;
+  }
+  table{
+    min-width:  768px;
+  }
+  th, td {
+    font-size: 1.4rem;
+    padding: 0.8rem;
+  }
+}
+@media (max-width: 500px) {
+  table {
+    font-size: 1.2rem;
+  }
+    th, td {
+    padding: 0.6rem;
+  }
+}
